@@ -1,6 +1,9 @@
 <?php
 
 function calculatePrice (){
+    if(empty($_POST)){
+        return '';
+    }
 
     $currency = $_POST["currency"];
     $rate = (float)$_POST["rate"];
@@ -35,7 +38,7 @@ function calculatePrice (){
         <form action="" method="post">
             <div class="form-group">
                 <label for="currency">Chose your desired currency: </label>
-                <input type='text' id="currency" name="currency">
+                <input type='text' id="currency" name="currency" value="<?php echo $currency; ?>">
             </div>
             <div class="form-group">
                 <label for="rate">Enter local currency rate: </label>
@@ -52,7 +55,7 @@ function calculatePrice (){
 
         </form>
         <?php
-        echo calculatePrice ();
+            echo calculatePrice ();
         ?>
     </div>
 
