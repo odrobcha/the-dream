@@ -5,22 +5,43 @@ function calculatePrice (){
         return '';
     }
 
-    $currency = $_POST["currency"];
-    $rate = (float)$_POST["rate"];
+    $from = $_POST["from"];
+    $to = $_POST["to"];
+
     $price = (float)$_POST["price"];
 
-    if ($currency == ''){
+    if ($from == ''){
         return '<p class="warning">Please, enter the currency</p>';
     }
-    if (($rate == 0)){
-        return '<p class="warning">Attention! Rate can not be 0</p>';
-    }
+
     if (($price == 0) || ($price <= 0)) {
-        return '<p class="warning">Please check the price of your cocktail</p>';
+        return '<p class="warning">Please check the the entered amount</p>';
+    }
+    $rate = 1;
+    if ($to == $from){
+        $rate = 1;
+    }
+    if (($from=='eur') && ($to == 'usd')){
+        $rate = 0.9;
+    }
+    if (($from=='eur') && ($to == 'uah')){
+        $rate = 30;
+    }
+    if (($from=='usd') && ($to == 'eur')){
+        $rate = 1.2;
+    }
+    if (($from=='usd') && ($to == 'uah')){
+        $rate = 27;
+    }
+    if (($from=='uah') && ($to == 'eur')){
+        $rate = 0.4;
+    }
+    if (($from=='uah') && ($to == 'usd')){
+        $rate = 0.5;
     }
 
     $calculatedPrice = (round($price/$rate, 2));
-    return '<p class="calulated-price"> The price of your cocktail is ' .$calculatedPrice .' '.$currency ;
+    return '<p class="calulated-price"> You wil get ' .$calculatedPrice .' '.$from ;
 }
 
 
@@ -37,20 +58,29 @@ function calculatePrice (){
     <div class="container-inner">
         <form action="" method="post">
             <div class="form-group">
+                <label for="currency">Chose your local currency: </label>
+                <select  id="currency" name="from">
+                    <option value="eur">EUR</option>
+                    <option value="usd">USD</option>
+                    <option value="uah">UAH</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="currency">Chose your desired currency: </label>
-                <input type='text' id="currency" name="currency" value="<?php echo $currency; ?>">
+                <select  id="currency" name="to">
+                    <option value="eur">EUR</option>
+                    <option value="usd">USD</option>
+                    <option value="uh">UH</option>
+                </select>
             </div>
+
             <div class="form-group">
-                <label for="rate">Enter local currency rate: </label>
-                <input type='text' id="rate" name="rate">
-            </div>
-            <div class="form-group">
-                <label for="price">Enter the price of cocktail in local currency: </label>
+                <label for="price">Enter the amount in local currency: </label>
                 <input type='text' id="price" name="price">
             </div>
 
             <div class="form-group">
-                <button type="submit">Calulate the price</button>
+                <button type="submit">Calculate the price</button>
             </div>
 
         </form>
