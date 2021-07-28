@@ -1,9 +1,14 @@
 <?php
-$test= 'test';
 
 function calculatePrice (){
+
+    $currency = $_POST["currency"];
     $rate = (float)$_POST["rate"];
     $price = (float)$_POST["price"];
+
+    if ($currency == ''){
+        return '<p class="warning">Please, enter the currency</p>';
+    }
     if (($rate == 0)){
         return '<p class="warning">Attention! Rate can not be 0</p>';
     }
@@ -12,7 +17,7 @@ function calculatePrice (){
     }
 
     $calculatedPrice = (round($price/$rate, 2));
-    return '<p class="calulated-price"> The price of your cocktail is ' .$calculatedPrice .' euro';
+    return '<p class="calulated-price"> The price of your cocktail is ' .$calculatedPrice .' '.$currency ;
 }
 
 
@@ -29,7 +34,11 @@ function calculatePrice (){
     <div class="container-inner">
         <form action="" method="post">
             <div class="form-group">
-                <label for="rate">Enter local rate: </label>
+                <label for="currency">Chose your desired currency: </label>
+                <input type='text' id="currency" name="currency">
+            </div>
+            <div class="form-group">
+                <label for="rate">Enter local currency rate: </label>
                 <input type='text' id="rate" name="rate">
             </div>
             <div class="form-group">
