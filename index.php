@@ -22,22 +22,22 @@ function calculatePrice (){
         $rate = 1;
     }
     if (($from=='eur') && ($to == 'usd')){
-        $rate = 0.9;
+        $rate = 1.19;
     }
     if (($from=='eur') && ($to == 'uah')){
-        $rate = 30;
+        $rate = 31.37;
     }
     if (($from=='usd') && ($to == 'eur')){
-        $rate = 1.2;
+        $rate = 0.84;
     }
     if (($from=='usd') && ($to == 'uah')){
-        $rate = 27;
+        $rate = 26.77;
     }
     if (($from=='uah') && ($to == 'eur')){
-        $rate = 0.4;
+        $rate = 0.032;
     }
     if (($from=='uah') && ($to == 'usd')){
-        $rate = 0.5;
+        $rate = 0.037;
     }
 
     $calculatedPrice = (round($price/$rate, 2));
